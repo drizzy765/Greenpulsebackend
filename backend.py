@@ -1,10 +1,11 @@
-
 import os
 import sqlite3
 import uuid
 from datetime import datetime
 import pandas as pd
 from fastapi import FastAPI, Depends, HTTPException, UploadFile, File, Form, Request
+# NOTE: Added Response import for the PDF endpoint
+from fastapi.responses import Response 
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
@@ -41,6 +42,13 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# --- NEW ROOT ROUTE ADDED HERE ---
+@app.get("/")
+def read_root():
+    """Simple status check for Render health checks and root access."""
+    return {"status": "ok", "message": "GreenpulseNG Backend is online."}
+# --- END NEW ROOT ROUTE ---
 
 # --- Security ---
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -317,7 +325,7 @@ async def generate_pdf_report(business_id: str, user: DevUser = Depends(current_
         
         c.showPage()
         c.save()
-        buffer.seek(0)
+        # NOTE: Ensured the Response class is imported at the top of the file
         return Response(content=buffer.getvalue(), media_type="application/pdf", headers={"Content-Disposition": f"attachment;filename=report_{business_id}.pdf"})
     finally:
         conn.close()
