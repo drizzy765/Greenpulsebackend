@@ -21,7 +21,7 @@ from reportlab.lib.colors import HexColor
 from prophet import Prophet
 
 # --- Configuration ---
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///emissions.db")
+DATABASE_URL = os.getenv("DATABASE_URL", "/tmp/emissions.db")
 SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
