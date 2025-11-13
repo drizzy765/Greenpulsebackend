@@ -50,6 +50,14 @@ def read_root():
     return {"status": "ok", "message": "GreenpulseNG Backend is online."}
 # --- END NEW ROOT ROUTE ---
 
+# --- NEW PING ROUTE ADDED HERE ---
+@app.get("/ping")
+def ping():
+    """Lightweight health check endpoint."""
+    return {"message": "pong", "status": "alive"}
+# --- END NEW PING ROUTE ---
+
+
 # --- Security ---
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
