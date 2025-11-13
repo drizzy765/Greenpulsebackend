@@ -10,7 +10,7 @@ prophet
 huggingface-hub
 transformers
 pydantic
-reportlab==3.6.12
+reportlab>=4.2.5
 python-jose[cryptography]
 passlib[bcrypt]
 gunicorn
